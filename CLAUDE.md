@@ -42,10 +42,21 @@ src/lib/format.ts                Pure helpers: relative time, deltas, currency, 
 src/data/types.ts                DashboardData — typed contract for every widget
 src/data/generateDashboardData.ts  Pure generator: generateDashboardData({seed, now})
 src/data/DashboardDataProvider.tsx 'use client' context; useDashboardData() hook
+src/components/primitives/*      Card, StatRow, DeltaBadge, ProgressBar, Gauge, IconButton
+src/components/icons/*           Inline SVG icons (e.g. ThumbsUpIcon) — no icon library
 next.config.mjs                  output:'export', images.unoptimized, trailingSlash
 ```
 
 Path alias: `@/*` -> `src/*`. Co-located tests: `*.test.ts(x)` next to source.
+
+## Primitives
+
+Reusable, presentational, token-driven. Compose widgets from these — don't hand-roll
+cards/badges/gauges. `Gauge` is `variant="radial"` (270°, CSAT) or `"semicircle"`
+(180°, churn); `role="meter"`. `DeltaBadge` colors by polarity (green improve / red
+worsen / muted flat) and exposes a full sentence via `aria-label`. `ProgressBar` is
+`role="progressbar"`. Stateful widgets are the `'use client'` boundary; primitives are
+server-compatible.
 
 ## Data flow
 
