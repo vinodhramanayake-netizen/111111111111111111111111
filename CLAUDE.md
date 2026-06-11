@@ -28,6 +28,8 @@ npm test             # Vitest (test:watch for watch mode)
 ```
 
 Before committing, ensure all pass: `typecheck`, `lint`, `format:check`, `test`, `build`.
+A husky pre-commit hook runs lint-staged (Prettier + ESLint on staged files); CI
+(`.github/workflows/ci.yml`, Linux) re-runs the full gate on push/PR to `main`.
 
 ## Layout
 
@@ -67,7 +69,9 @@ the generator). `DashboardView` consumes the shared data once and distributes sl
 across a dense 3-column grid: left = `KpiPanel`; center = `TicketsByTag` + `FeedbackCarousel`
 (top) and `WeeklyReceivedSolvedChart` (bottom); right = `ProductStats` (×2), `ChurnGauge`,
 `LtvCard`. `FeedbackCarousel` is `'use client'` (slide state, positive-only, dot+arrow nav).
-Grid has `min-width: 1240px` — responsive/horizontal-scroll polish is its own step.
+The grid (`min-width: 1240px`) sits in a `.scrollArea` wrapper: fits at ~1440px, and below
+~1280px only that wrapper scrolls horizontally (`overscroll-behavior-x: contain`) — never
+the whole page/header.
 
 ## Data flow
 
