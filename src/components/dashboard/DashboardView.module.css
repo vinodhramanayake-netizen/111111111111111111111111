@@ -1,0 +1,146 @@
+.page {
+  min-height: 100vh;
+  padding: var(--space-xl);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.demoBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-amber);
+  background-color: color-mix(in srgb, var(--color-amber) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-amber) 40%, transparent);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+/* Horizontal-scroll boundary. Below ~1280px the dense grid overflows *this*
+   container (not the body), so the header stays put and the page never jitters
+   sideways. `overscroll-behavior-x: contain` stops scroll-chaining to the page. */
+.scrollArea {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-bottom: var(--space-xs);
+}
+
+/* Dense desktop-first 3-column grid. The min-width preserves the dense layout
+   so columns never collapse, overlap, or clip text — at ~1440px it fits without
+   horizontal scrolling; narrower viewports scroll within .scrollArea. */
+.grid {
+  display: grid;
+  grid-template-columns: 300px minmax(560px, 1fr) 340px;
+  gap: var(--space-lg);
+  align-items: start;
+  min-width: 1240px;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.center {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  gap: var(--space-lg);
+}
+
+.centerTopLeft {
+  grid-column: 1;
+}
+
+.centerTopRight {
+  grid-column: 2;
+}
+
+.centerBottom {
+  grid-column: 1 / -1;
+}
+
+/* Loading skeleton */
+.skeleton {
+  min-height: 132px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    100deg,
+    var(--color-surface) 30%,
+    var(--color-surface-raised) 50%,
+    var(--color-surface) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.skeletonTall {
+  min-height: 420px;
+}
+
+.skeletonChart {
+  min-height: 300px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+/* Reclaim horizontal space on narrower viewports (where the grid scrolls). */
+@media (max-width: 1280px) {
+  .page {
+    padding: var(--space-lg);
+  }
+}
