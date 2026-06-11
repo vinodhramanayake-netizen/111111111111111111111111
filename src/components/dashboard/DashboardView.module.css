@@ -43,8 +43,18 @@
   white-space: nowrap;
 }
 
-/* Dense 3-column dashboard grid. min-width keeps the dense layout intact;
-   narrower viewports scroll horizontally (refined in the responsive step). */
+/* Horizontal-scroll boundary. Below ~1280px the dense grid overflows *this*
+   container (not the body), so the header stays put and the page never jitters
+   sideways. `overscroll-behavior-x: contain` stops scroll-chaining to the page. */
+.scrollArea {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-bottom: var(--space-xs);
+}
+
+/* Dense desktop-first 3-column grid. The min-width preserves the dense layout
+   so columns never collapse, overlap, or clip text — at ~1440px it fits without
+   horizontal scrolling; narrower viewports scroll within .scrollArea. */
 .grid {
   display: grid;
   grid-template-columns: 300px minmax(560px, 1fr) 340px;
@@ -125,5 +135,12 @@
 @media (prefers-reduced-motion: reduce) {
   .skeleton {
     animation: none;
+  }
+}
+
+/* Reclaim horizontal space on narrower viewports (where the grid scrolls). */
+@media (max-width: 1280px) {
+  .page {
+    padding: var(--space-lg);
   }
 }

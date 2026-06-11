@@ -32,37 +32,40 @@ export function DashboardView() {
         <span className={styles.demoBadge}>Demo data</span>
       </header>
 
-      {!data ? (
-        <DashboardSkeleton />
-      ) : (
-        <div className={styles.grid}>
-          <div className={styles.left}>
-            <KpiPanel
-              csat={data.csat}
-              firstResponseTime={data.firstResponseTime}
-              avgResolutionTime={data.avgResolutionTime}
-            />
-          </div>
+      {/* Only this region scrolls horizontally below ~1280px — never the whole page. */}
+      <div className={styles.scrollArea}>
+        {!data ? (
+          <DashboardSkeleton />
+        ) : (
+          <div className={styles.grid}>
+            <div className={styles.left}>
+              <KpiPanel
+                csat={data.csat}
+                firstResponseTime={data.firstResponseTime}
+                avgResolutionTime={data.avgResolutionTime}
+              />
+            </div>
 
-          <div className={styles.center}>
-            <div className={styles.centerTopLeft}>
-              <TicketsByTag tags={data.ticketsByTag} />
+            <div className={styles.center}>
+              <div className={styles.centerTopLeft}>
+                <TicketsByTag tags={data.ticketsByTag} />
+              </div>
+              <div className={styles.centerTopRight}>
+                <FeedbackCarousel items={data.feedback} />
+              </div>
+              <div className={styles.centerBottom}>
+                <WeeklyReceivedSolvedChart days={data.weeklyVolume} />
+              </div>
             </div>
-            <div className={styles.centerTopRight}>
-              <FeedbackCarousel items={data.feedback} />
-            </div>
-            <div className={styles.centerBottom}>
-              <WeeklyReceivedSolvedChart days={data.weeklyVolume} />
-            </div>
-          </div>
 
-          <div className={styles.right}>
-            <ProductStats newUsers={data.newUsers} reportsCreated={data.reportsCreated} />
-            <ChurnGauge churn={data.churn} />
-            <LtvCard ltv={data.ltv} />
+            <div className={styles.right}>
+              <ProductStats newUsers={data.newUsers} reportsCreated={data.reportsCreated} />
+              <ChurnGauge churn={data.churn} />
+              <LtvCard ltv={data.ltv} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 }

@@ -41,4 +41,21 @@ client-side (no server logic).
 - **Styling:** global dark theme + CSS Modules per component.
 - **Charts:** custom lightweight SVG components (no charting library).
 - **Testing:** Vitest + Testing Library.
-- **Quality:** ESLint + Prettier.
+- **Quality:** ESLint + Prettier, enforced on commit (husky + lint-staged) and in CI.
+
+## Responsive behavior
+
+Desktop-first dense 3-column grid. At ~1440px the layout fits without horizontal
+scrolling. Below ~1280px the grid scrolls **horizontally within its own container**
+(not the whole page), so the header stays put and content is never clipped or
+overlapped. `overscroll-behavior` prevents scroll-chaining jitter.
+
+## Deployment (Vercel, zero config)
+
+This is a fully static Next.js export — no server runtime, no environment variables.
+
+- **CI:** `.github/workflows/ci.yml` runs format-check, lint, type-check, tests and the
+  static build on Linux for every push/PR to `main`.
+- **Vercel:** import the repo; Vercel auto-detects Next.js with `output: 'export'` and
+  serves the generated `out/` directory. No `vercel.json` or settings required —
+  preview deploys per PR, production on merge to `main`.
