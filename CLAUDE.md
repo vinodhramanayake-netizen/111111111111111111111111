@@ -44,6 +44,8 @@ src/data/generateDashboardData.ts  Pure generator: generateDashboardData({seed, 
 src/data/DashboardDataProvider.tsx 'use client' context; useDashboardData() hook
 src/components/primitives/*      Card, StatRow, DeltaBadge, ProgressBar, Gauge, IconButton
 src/components/icons/*           Inline SVG icons (e.g. ThumbsUpIcon) — no icon library
+src/components/widgets/*         KpiPanel, TicketsByTag, FeedbackCarousel, WeeklyReceivedSolvedChart, ProductStats, ChurnGauge, LtvCard
+src/components/dashboard/DashboardView.tsx  'use client' — reads data once, 3-col grid + skeleton
 next.config.mjs                  output:'export', images.unoptimized, trailingSlash
 ```
 
@@ -57,6 +59,15 @@ cards/badges/gauges. `Gauge` is `variant="radial"` (270°, CSAT) or `"semicircle
 worsen / muted flat) and exposes a full sentence via `aria-label`. `ProgressBar` is
 `role="progressbar"`. Stateful widgets are the `'use client'` boundary; primitives are
 server-compatible.
+
+## Widgets
+
+Pure presentational components that take their typed data slice as **props** (never call
+the generator). `DashboardView` consumes the shared data once and distributes slices
+across a dense 3-column grid: left = `KpiPanel`; center = `TicketsByTag` + `FeedbackCarousel`
+(top) and `WeeklyReceivedSolvedChart` (bottom); right = `ProductStats` (×2), `ChurnGauge`,
+`LtvCard`. `FeedbackCarousel` is `'use client'` (slide state, positive-only, dot+arrow nav).
+Grid has `min-width: 1240px` — responsive/horizontal-scroll polish is its own step.
 
 ## Data flow
 
