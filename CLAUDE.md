@@ -32,14 +32,27 @@ Before committing, ensure all pass: `typecheck`, `lint`, `format:check`, `test`,
 ## Layout
 
 ```
-src/app/layout.tsx       Root layout: <html dark>, Inter font, globals import
-src/app/page.tsx         Single dashboard route (no nav/sidebar)
-src/app/globals.css      Dark theme + design tokens as CSS custom properties
-src/theme/tokens.ts      CANONICAL design tokens (colors/spacing/typography/radii/motion)
-next.config.mjs          output:'export', images.unoptimized, trailingSlash
+src/app/layout.tsx               Root layout: <html dark>, Inter font, globals import
+src/app/page.tsx                 Single dashboard route (no nav/sidebar)
+src/app/globals.css              Dark theme + design tokens as CSS custom properties
+src/theme/tokens.ts              CANONICAL design tokens (colors/spacing/typography/radii/motion)
+src/lib/rng.ts                   Seeded RNG (mulberry32 + FNV-1a hash)
+src/lib/seed.ts                  DEFAULT_SEED=1337, parseSeed, getSeedFromSearch (?seed=)
+src/lib/format.ts                Pure helpers: relative time, deltas, currency, date labels
+src/data/types.ts                DashboardData — typed contract for every widget
+src/data/generateDashboardData.ts  Pure generator: generateDashboardData({seed, now})
+src/data/DashboardDataProvider.tsx 'use client' context; useDashboardData() hook
+next.config.mjs                  output:'export', images.unoptimized, trailingSlash
 ```
 
-Path alias: `@/*` -> `src/*`.
+Path alias: `@/*` -> `src/*`. Co-located tests: `*.test.ts(x)` next to source.
+
+## Data flow
+
+`DashboardDataProvider` generates the dataset **once** post-mount (reads `?seed=`,
+passes `new Date()`), shares it via `useDashboardData()`. Widgets are pure consumers —
+never call `generateDashboardData` directly. The generator is pure (inject `now`) so it
+is deterministic and testable.
 
 ## Conventions & constraints
 
@@ -70,6 +83,7 @@ green `#22c55e` (positive / healthy), red `#ef4444` (alert / high-risk).
 ## Notes
 
 - Pinned Next 15 / React 18 (not 16/19) for static-export + testing stability.
-- Vitest 4 prints cosmetic rolldown deprecation warnings during tests — harmless.
-- Remaining `npm audit` items are dev/build-chain moderates (esbuild/vite/postcss), not in
-  the shipped bundle; 0 critical / 0 high.
+- Vitest 4 uses rolldown/oxc; `@vitejs/plugin-react` must be **v6+** so JSX in `.tsx`
+  tests transforms despite tsconfig `jsx: "preserve"` (required by Next).
+- Remaining `npm audit` items are dev/build-chain moderates (esbuild/vite), not in the
+  shipped bundle; 0 critical / 0 high.
