@@ -1,0 +1,17 @@
+.panel {
+  height: 100%;
+}
+
+.gaugeWrap {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-md) 0 var(--space-lg);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
