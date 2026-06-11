@@ -1,0 +1,55 @@
+.page {
+  min-height: 100vh;
+  padding: var(--space-xl);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.demoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-amber);
+  background-color: color-mix(in srgb, var(--color-amber) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-amber) 40%, transparent);
+  border-radius: var(--radius-pill);
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 40vh;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}

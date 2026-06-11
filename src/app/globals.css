@@ -1,0 +1,110 @@
+/**
+ * Global dark theme + design tokens as CSS custom properties.
+ * These mirror src/theme/tokens.ts (the canonical source). Keep them in sync.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --color-background: #0b1120;
+  --color-surface: #111a2e;
+  --color-surface-raised: #16213a;
+  --color-border: #243049;
+
+  /* Text */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #aab6cc;
+  --color-text-muted: #7c8aa5;
+
+  /* Accents */
+  --color-primary: #3b82f6;
+  --color-primary-strong: #60a5fa;
+  --color-cyan: #22d3ee;
+  --color-amber: #f59e0b;
+  --color-green: #22c55e;
+  --color-red: #ef4444;
+  --color-track: #1f2a44;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* Typography */
+  --font-family: var(--font-inter), Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 36px;
+  --font-size-display: 48px;
+
+  /* Motion */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Accessible, visible focus for all keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--color-primary-strong);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
